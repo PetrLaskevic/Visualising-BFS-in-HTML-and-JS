@@ -300,7 +300,14 @@ mazePicker.addEventListener("change", function(e){
 			document.getElementById("loadOnLocalServerOK").focus();
 			return;
 		}else{
-				mazeUrl = window.location.href + mazeSelected;
+			alert(window.location.href.split("#")[0]) //	http://localhost:8000/bfs%207%20release/bfs7%20dalsi%20flex%20experiment%20rewrite%20to%20classes%20en.html84.txt
+				//is not local server
+				if(location.hostname.endsWith("github.io")){
+					mazeUrl = window.location.href + mazeSelected;
+				}else{
+					//is local server
+					mazeUrl = "/"  + mazeSelected;
+				}	
 		}
 		
 		fetch(mazeUrl)
