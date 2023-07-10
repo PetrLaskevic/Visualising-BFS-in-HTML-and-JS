@@ -300,7 +300,7 @@ mazePicker.addEventListener("change", function(e){
 			document.getElementById("loadOnLocalServerOK").focus();
 			return;
 		}else{
-				mazeUrl = "/" + mazeSelected;
+				mazeUrl = window.location.href + mazeSelected;
 		}
 		
 		fetch(mazeUrl)
