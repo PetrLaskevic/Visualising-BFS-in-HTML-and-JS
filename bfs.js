@@ -57,6 +57,8 @@ class BFSMazeApp{
 		this.endCoordinates = [];
 		this.zcelaHotovo = false;
 		this.poleVidena = {};
+		this.zJakehoPoleJsmeSemPrisli = {};
+		this.delkaCesty = 0;
 	}
 	hideMaze(){
 		this.graphicalMaze.hidden = true;
@@ -124,6 +126,8 @@ class BFSMazeApp{
 	    console.log(text)
 	   
 	    this.tryToFitTheMazeOnScreen();
+	    let mapText = document.getElementById("mapText");
+	    mapText.textContent = "";
 	    for(let x = 0; x < text.length - 2; x++){ //last 2 lines are start and stop (and possibly an empty line => which I removed already)
 
 	    	let row = text[x].split("")
@@ -132,7 +136,7 @@ class BFSMazeApp{
 	    	
 	    	//the 2D array, storing the maze in place
 				this.maze.push(row); 
-	    	document.getElementById("mapText").textContent += row + "\n";
+	    	mapText.textContent += row + "\n";
 
 	    	for(let y of row){
 					const td = tr.insertCell();
@@ -201,11 +205,21 @@ class BFSMazeApp{
 				//performance OK, the arrays have 2 items each
 				if(String(evaluatedVrchol) == String(this.endCoordinates)){
 					this.zcelaHotovo = true;
+					this.delkaCesty = vzdalenost;
 					alert("DONE!!!, the length of path from start to end is: " + vzdalenost + " cells");
 					
 				}
 				await wait(parseInt(animationDelay.value));
 				await this.evaluateKolemPole(evaluatedVrchol, vzdalenost, this.endCoordinates);
+			}
+			this.calculatePath();
+		}
+
+		calculatePath(){
+			let pole = this.endCoordinates;
+			for(let x = 0; x < this.delkaCesty - 1; x++){ // -1 so we don't color the start coordinate too
+				pole = this.zJakehoPoleJsmeSemPrisli[pole];
+				this.addClassToCell(pole, "cesta");
 			}
 		}
 
@@ -254,6 +268,7 @@ class BFSMazeApp{
 					this.addClassToCell(okolniPolePosLoc[x], "visited");
 					this.poleVidena[okolniPolePosLoc[x]] = vzdalenost + 1;
 					this.fronta.put([okolniPolePosLoc[x], vzdalenost + 1]);
+					this.zJakehoPoleJsmeSemPrisli[okolniPolePosLoc[x]] = coordinates;
 				}
 			}
 			await wait(parseInt(animationDelay.value));
