@@ -302,7 +302,7 @@ class BFSMazeApp{
 let mazePicker = document.getElementById("mazePicker");
 mazePicker.addEventListener("change", function(e){
 	let mazeSelected = mazePicker.value;
-	if(mazeSelected != "Select the maze"){
+	if(mazeSelected != ""){
 		let mazeUrl = ""
 
 		if(window.location.protocol == "file:"){
