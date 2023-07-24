@@ -6,6 +6,235 @@
     <meta name="viewport" content="width=device-width"> 
     <style type="text/css">
         @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        .useFullWidthForMobile{
+            width: 100%;
+            border-spacing: 0 !important;
+        }
+        /*unsets min-height a min-width, so the table fits on screen without overflow)*/
+        .useFullWidthForMobile > tbody > tr > td{
+            min-height: unset;
+            min-width: unset;
+        }
+        .ok{
+            width: 4.5em;
+            margin-right: 20px;
+            border: none;
+            padding: 7px;
+            border-radius: 3px
+        }
+        .inlineCode{
+            display: inline;
+            padding: 3px;
+            border-radius: 2px;
+            background: #e3e6e8;
+        }
+        .blockCode{
+            display: block;
+            width: fit-content;
+            padding: 3px;
+            border-radius: 2px;
+            background: #e3e6e8;
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .popup{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            background: white;
+            padding: 10px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; /*https://getcssscan.com/css-box-shadow-examples*/
+            border-radius: 3px;
+            overflow: auto;
+            max-height: 95%;
+            transition: ease opacity 0.5s;
+            visibility: visible
+        }
+        .popup > .heading{
+            margin-top: 0px;
+            font-size: 1.2rem;
+        }
+         .hidden{
+           visibility: hidden;
+            opacity: 0;
+        }
+        .popup > p{
+            line-height: 1.5;
+        }
+        .popup > ul{
+            line-height: 1.5;
+        }
+        .popisek{
+            display: inline;
+            font-size: 1.5rem;
+            font-family: "Consolas", monospace;
+        }
+        .ctverecek{
+            height: 1.5rem;
+            width: 1.5rem;
+            display: inline-block;
+            vertical-align:bottom;
+        }
+        #inputfile{
+            font-size: 1rem;
+        }
+        .s{
+            aspect-ratio: 1 / 1;
+        }
+        #mapText{
+            overflow-x: scroll;
+        }
+        td{
+            font-family: Consolas;
+            height:  0.5vw;
+            width:   0.5vw;
+            min-height: 10px;
+            min-width: 10px;
+        }
+        .skippedText{
+            color: #4eb54b;
+        }
+        .green{
+            background: green;
+        }
+        .greenText{
+            color: green;
+        }
+        table{
+            font-size: 18px;
+            border-spacing: 1.5px;
+            margin: auto;
+            background: #0a0a0d;
+        }
+        td{
+            background: white;
+        }
+        #visualisationDelayControls{
+            display: inline;
+            white-space: nowrap;
+        }
+        #visualisationDelayPicker{
+            height: 1.2rem;
+        }
+        .visited{
+            background: #c77e1f;  /*#c77e1fbf;*/
+        }
+        .visitedText{
+            color: #c77e1fbf;
+        }
+        .skipped{
+            background: #6acd67; /*#4eb54bc2;*/
+        }
+        .end{
+            background: #0004ff !important;
+        }
+        .endText{
+            color: #2c71ed;
+        }
+        .endCtverecek{
+            background: #2c71ed;
+        }
+        .startText{
+            color: #f85701;
+        }
+        .considered{
+            background: red !important;
+        }
+        .cesta{
+            background: cyan !important;
+        }
+        .cesta2{
+            background: #ca3a3a !important; /* #0094ff*/ /* #6770ff */
+        }
+        @media only screen and (max-width: 800px) { /*777 40em*/
+            h1{
+                color: red !important;
+            }
+            #controls{
+                gap: 11px
+            }
+            #left{
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            #visualisationDelayControls{
+                padding-top: 15px;
+            }
+            #legenda > div {
+                flex-basis: fit-content;
+            }
+            .popisek{ 
+               /* font-size: 1rem;*/
+                font-family: sans-serif;
+            }
+            
+            .ctverecek{
+                height: 1.25rem;
+                width: 1.25rem;
+                vertical-align: middle;
+            }
+            table{
+                width: 100% !important;
+                border-spacing: 0;
+            }
+            .popup{
+                width: 95%;
+                font-size: 0.8rem;
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            h1{
+                color: green;
+            }
+            td{
+                background: #0a0a0d;
+            }
+            :root{
+              color-scheme: dark;
+            }
+           .considered{
+                background: red !important;
+            }
+            .green{
+                background: #206e2f8c;
+            }
+           .visited:not(.green, .start){
+            background: #c77e1fbf;
+            }
+            .skipped:not(.green, .start){
+                background: #4eb54bc2; 
+            }
+            .skippedText{
+                color: #4eb54bc2;
+            }
+            .inlineCode{
+                background: #33383ac7;
+            }
+            .blockCode{
+                background: #33383ac7;
+            }
+            .popup{
+                background: rgba(10, 11, 11, 0.65);     
+                backdrop-filter: blur(5px);
+            }
+            .cesta2{
+                background: #2d98ff !important;
+            }
+        }
+        .start{
+            background: #f85701 !important;
+        }
+
+        @media (pointer:coarse) {
+             button, select{
+                height: 40px;
+            }
+            #helpButton{
+                margin-left: 15px;
+                transform: scale(1.5);
+            }
+        }
     </style>
 </head>
 <body style="font-family: 'Roboto', sans-serif;">
@@ -42,15 +271,15 @@
         </div>
         <div id="right" style="flex-grow: 1;flex-grow: 1;flex-basis: 431px;min-width: min-content;"> <!-- originally there was flex-basis: min-content; it worked pretty well, I just wanted to move the breakpoint of how it wraps to a bit wider, I wanted to put flex-basis: calc(min-content + 50px), but it doesn't work, so I tried padding-left: 50px, which worked, but it looked weird again on my phone (I didn't want to add more media query, so I added flex-basis: 431px (value found experimentally)) -->
           <div id="legenda" style="display: flex;gap:20px;flex-wrap: wrap">
-            <div>
+            <div> <!-- "flex-basis: content"  --><!-- min-width: auto;" -->  <!-- "min-width: fit-content;white-space: nowrap;" -->
                 <div class="green ctverecek"></div>
                 <b class="greenText popisek">wall</b>
             </div>
-            <div>
+            <div> <!-- "flex-basis: 180px" --> <!--  content -->
                 <div class="visited ctverecek"></div>
                 <b class="visitedText popisek">visited cell</b>
             </div>
-            <div>
+            <div> <!-- content -->
                  <div class="skipped ctverecek"></div>
                 <b class="skippedText popisek">visited & skipped cell</b>
             </div>
@@ -132,232 +361,7 @@ end 31, 6
      <div id="startNotSpecified" class="popup hidden">
          <p>Start of the maze not specified, refer to <a href="#" onclick="this.parentElement.parentElement.classList.add('hidden');document.getElementById('helpButton').click()">file format guide</a></p>
      </div>
-      
 
-<style type="text/css">
-    .useFullWidthForMobile{
-        width: 100%;
-        border-spacing: 0 !important;
-    }
-    /*unsets min-height a min-width, so the table fits on screen without overflow)*/
-    .useFullWidthForMobile > tbody > tr > td{
-        min-height: unset;
-        min-width: unset;
-    }
-    .ok{
-        width: 4.5em;
-        margin-right: 20px;
-        border: none;
-        padding: 7px;
-        border-radius: 3px
-    }
-    .inlineCode{
-        display: inline;
-        padding: 3px;
-        border-radius: 2px;
-        background: #e3e6e8;
-    }
-    .blockCode{
-        display: block;
-        width: fit-content;
-        padding: 3px;
-        border-radius: 2px;
-        background: #e3e6e8;
-        font-size: 1rem;
-        line-height: 1;
-    }
-    .popup{
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        translate: -50% -50%;
-        background: white;
-        padding: 10px;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; /*https://getcssscan.com/css-box-shadow-examples*/
-        border-radius: 3px;
-        overflow: auto;
-        max-height: 95%;
-        transition: ease opacity 0.5s;
-        visibility: visible
-    }
-    .popup > .heading{
-        margin-top: 0px;
-        font-size: 1.2rem;
-    }
-     .hidden{
-       visibility: hidden;
-        opacity: 0;
-    }
-    .popup > p{
-        line-height: 1.5;
-    }
-    .popup > ul{
-        line-height: 1.5;
-    }
-    .popisek{
-        display: inline;
-        font-size: 1.5rem;
-        font-family: "Consolas", monospace;
-    }
-    .ctverecek{
-        height: 1.5rem;
-        width: 1.5rem;
-        display: inline-block;
-        vertical-align:bottom;
-    }
-    #inputfile{
-        font-size: 1rem;
-    }
-    .s{
-        aspect-ratio: 1 / 1;
-    }
-    #mapText{
-        overflow-x: scroll;
-    }
-    td{
-        font-family: Consolas;
-        height:  0.5vw;
-        width:   0.5vw;
-        min-height: 10px;
-        min-width: 10px;
-    }
-    .skippedText{
-        color: #4eb54b;
-    }
-    .green{
-        background: green;
-    }
-    table{
-        font-size: 18px;
-        border-spacing: 1.5px;
-        margin: auto;
-    }
-    td{
-        background: white;
-    }
-    #visualisationDelayControls{
-        display: inline;
-        white-space: nowrap;
-    }
-    #visualisationDelayPicker{
-        height: 1.2rem;
-    }
-    .visited{
-        background: #c77e1fbf;
-    }
-    .visitedText{
-        color: #c77e1fbf;
-    }
-    .skipped{
-        background: #4eb54bc2;
-    }
-    .end{
-        background: #0004ff !important;
-    }
-    .endText{
-        color: #2c71ed;
-    }
-    .endCtverecek{
-        background: #2c71ed;
-    }
-    .start{
-        background: #f85701 !important;
-    }
-    .startText{
-        color: #f85701;
-    }
-    .considered{
-        background: red !important;
-    }
-    .cesta{
-        background: cyan !important;
-    }
-
-    @media only screen and (max-width: 800px) { /*777 40em*/
-        h1{
-            color: red !important;
-        }
-        #controls{
-            gap: 11px
-        }
-        #left{
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #visualisationDelayControls{
-            padding-top: 15px;
-        }
-        #legenda > div > .popisek{ /*zvyseni specificity oproti .popisek*/
-            font-size: 16px !important;
-            font-family: sans-serif !important;
-            color: red;
-        }
-        .ctverecek{
-            height: 1.25rem;
-            width: 1.25rem;
-            vertical-align: middle;
-        }
-        table{
-            width: 100% !important;
-            border-spacing: 0;
-        }
-        .popup{
-            width: 95%;
-            font-size: 0.8rem;
-        }
-    }
-    @media (prefers-color-scheme: dark) {
-        h1{
-            color: green;
-        }
-        td{
-            background: #0a0a0d;
-        }
-        :root{
-          color-scheme: dark;
-        }
-       .considered{
-            background: red !important;
-        }
-        .green{
-            background: #206e2f8c;
-        }
-        .greenText{
-            color: green;
-        }
-       .visited:not(.green, .start){
-        background: #c77e1fbf;
-        }
-        .skipped:not(.green, .start){
-            background: #4eb54bc2; 
-        }
-        .skippedText{
-            color: #4eb54bc2;
-        }
-        .inlineCode{
-            background: #33383ac7;
-        }
-        .blockCode{
-            background: #33383ac7;
-        }
-        .popup{
-            background: rgba(10, 11, 11, 0.65);     
-            backdrop-filter: blur(5px);
-        }
-        .fullScreen{
-            background: #1c1b22;
-        }
-    }
-    @media (pointer:coarse) {
-         button, select{
-            height: 40px;
-        }
-        #helpButton{
-            margin-left: 15px;
-            transform: scale(1.5);
-        }
-    }
-</style>
-<script src="bfs.js"></script>
+<script src="bfs mod.js"></script> <!-- "bfs diagonalni mod.js"-->
 </body>
 </html>
