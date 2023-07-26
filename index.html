@@ -66,7 +66,6 @@
             line-height: 1.5;
         }
         .popisek{
-            display: inline;
             font-size: 1.5rem;
             font-family: "Consolas", monospace;
         }
@@ -118,13 +117,13 @@
             height: 1.2rem;
         }
         .visited{
-            background: #c77e1f;  /*#c77e1fbf;*/
+            background: #c77e1f;
         }
         .visitedText{
             color: #c77e1fbf;
         }
         .skipped{
-            background: #6acd67; /*#4eb54bc2;*/
+            background: #6acd67;
         }
         .end{
             background: #0004ff !important;
@@ -145,14 +144,11 @@
             background: cyan !important;
         }
         .cesta2{
-            background: #ca3a3a !important; /* #0094ff*/ /* #6770ff */
+            background: #ca3a3a !important;
         }
         @media only screen and (max-width: 800px) { /*777 40em*/
-            h1{
-                color: red !important;
-            }
             #controls{
-                gap: 11px
+                gap: 5px !important;
             }
             #left{
                 padding-top: 10px;
@@ -161,11 +157,7 @@
             #visualisationDelayControls{
                 padding-top: 15px;
             }
-            #legenda > div {
-                flex-basis: fit-content;
-            }
             .popisek{ 
-               /* font-size: 1rem;*/
                 font-family: sans-serif;
             }
             
@@ -181,6 +173,20 @@
             .popup{
                 width: 95%;
                 font-size: 0.8rem;
+            }
+            .textHolder{
+                display: flex;
+                gap: 5px;
+                font-size: 1.5rem !important;
+            }
+            .textHolder > b{
+                width: fit-content;
+            }
+            .textHolder > div{
+                flex-shrink: 0;
+            }
+            .textHolder{
+                align-items: baseline;
             }
         }
         @media (prefers-color-scheme: dark) {
@@ -215,7 +221,7 @@
                 background: #33383ac7;
             }
             .popup{
-                background: rgba(10, 11, 11, 0.65);     
+                background: rgba(10, 11, 11, 0.65);
                 backdrop-filter: blur(5px);
             }
             .cesta2{
@@ -234,6 +240,15 @@
                 margin-left: 15px;
                 transform: scale(1.5);
             }
+            #visualisationDelayControls{
+                font-size: clamp(1rem, 2.5vw, 1.1rem);
+            }
+            .custom-file-upload{
+                font-size:clamp(1rem, 2.5vw, 1.1rem);
+            }
+            #mazePicker{
+                font-size: clamp(1rem, 2.5vw, 1.1rem);
+            }
         }
     </style>
 </head>
@@ -241,7 +256,7 @@
     <div id="controls" style="display: flex;flex-wrap: wrap;gap: 28px;"> 
       <div>
         <h1 style="margin: 0 auto;width: fit-content;">BFS Visualisation</h1>
-        <div id="left" style="display: inline-flex;align-items: baseline;flex-wrap: wrap;column-gap: 10px;">
+        <div id="left" style="display: inline-flex;align-items: baseline;flex-wrap: wrap;column-gap: 10px;justify-content: center;">
           <select autofocus  id="mazePicker">
             <option value="">Select the maze</option>
             <option>84.txt</option>
@@ -271,27 +286,27 @@
         </div>
         <div id="right" style="flex-grow: 1;flex-grow: 1;flex-basis: 431px;min-width: min-content;"> <!-- originally there was flex-basis: min-content; it worked pretty well, I just wanted to move the breakpoint of how it wraps to a bit wider, I wanted to put flex-basis: calc(min-content + 50px), but it doesn't work, so I tried padding-left: 50px, which worked, but it looked weird again on my phone (I didn't want to add more media query, so I added flex-basis: 431px (value found experimentally)) -->
           <div id="legenda" style="display: flex;gap:20px;flex-wrap: wrap">
-            <div> <!-- "flex-basis: content"  --><!-- min-width: auto;" -->  <!-- "min-width: fit-content;white-space: nowrap;" -->
+            <div class="textHolder">
                 <div class="green ctverecek"></div>
                 <b class="greenText popisek">wall</b>
             </div>
-            <div> <!-- "flex-basis: 180px" --> <!--  content -->
+            <div class="textHolder">
                 <div class="visited ctverecek"></div>
                 <b class="visitedText popisek">visited cell</b>
             </div>
-            <div> <!-- content -->
+            <div class="textHolder">
                  <div class="skipped ctverecek"></div>
                 <b class="skippedText popisek">visited & skipped cell</b>
             </div>
-            <div>
+            <div class="textHolder">
                 <div class="start ctverecek"></div>
                 <b class="startText popisek">start</b>
             </div>
-            <div>
+            <div class="textHolder">
                 <div class="endCtverecek ctverecek"></div>
                 <b class="endText popisek">end</b>
             </div>
-            <div>
+            <div class="textHolder">
                 <div class="considered ctverecek"></div>
                 <b style="color:#c92222" class="popisek">already visited cell, around which the neighbors are being searched <u>now</u></b>
             </div>
@@ -362,6 +377,6 @@ end 31, 6
          <p>Start of the maze not specified, refer to <a href="#" onclick="this.parentElement.parentElement.classList.add('hidden');document.getElementById('helpButton').click()">file format guide</a></p>
      </div>
 
-<script src="bfs.js"></script> <!-- "bfs diagonalni mod.js"-->
+<script src="bfs.js"></script>
 </body>
 </html>
