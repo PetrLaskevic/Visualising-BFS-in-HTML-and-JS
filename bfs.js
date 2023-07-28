@@ -47,6 +47,12 @@ let mazeAppClassHolderVariable; //the instance of the maze app
 let fronta;
 let animationDelay = document.getElementById("visualisationDelayPicker");
 
+document.getElementById("resume").addEventListener("click", function(){
+	mazeAppClassHolderVariable.zcelaHotovo = false;
+	animationDelay.value = 0;
+	mazeAppClassHolderVariable.runBFS();
+});
+
 class BFSMazeApp{
 	constructor() {
 		this.fronta = new Queue();
@@ -62,6 +68,8 @@ class BFSMazeApp{
 	}
 	hideMaze(){
 		this.graphicalMaze.hidden = true;
+		//document.getElementById("funFact").hidden = true; did not work
+		document.getElementById("funFact").classList.add("hiddenWithNoHeight");
 	}
 	createMaze(){
 		const d = new Date();
@@ -182,7 +190,15 @@ class BFSMazeApp{
 	    console.log("this.startCoordinates", this.startCoordinates)
 	    
 	  }
+	  presentResult(){
+	  	let row = this.graphicalMaze.insertRow()
+	  	let holder = row.insertCell();
+	  	holder.colSpan = 77; //this.pocetColumns
+	  	holder.className = "presentResult";
+	  	holder.innerHTML = "<span style='color:cyan'>Path</span> length from <span class='startText'>start</span> to end is " + this.delkaCesty + " cells long";
 
+	  	document.getElementById("funFact").classList.remove("hiddenWithNoHeight");
+	  }
 	  async startBFS(){ //async so I can use wait function
 			//each item in the fronta queue has a row number, a column number and the distance from start (= length of the path) 
 			//coordinates (row : column), distance
@@ -193,6 +209,9 @@ class BFSMazeApp{
 			this.fronta.put([this.startCoordinates, 0]);
 			this.addClassToCell(this.startCoordinates, "start");
 			this.addClassToCell(this.endCoordinates, "end");
+			this.runBFS();
+		}
+		async runBFS(){
 			let evaluatedVrchol;
 			let vzdalenost;
 			console.log(this.fronta);
@@ -206,13 +225,14 @@ class BFSMazeApp{
 				if(String(evaluatedVrchol) == String(this.endCoordinates)){
 					this.zcelaHotovo = true;
 					this.delkaCesty = vzdalenost;
-					alert("DONE!!!, the length of path from start to end is: " + vzdalenost + " cells");
-					
+					//alert("DONE!!!, the length of path from start to end is: " + vzdalenost + " cells");
+					this.presentResult();
 				}
 				await wait(parseInt(animationDelay.value));
 				await this.evaluateKolemPole(evaluatedVrchol, vzdalenost, this.endCoordinates);
 			}
 			this.calculatePath();
+			this.attachClickListenerToDrawPathToAnyField();
 		}
 
 		calculatePath(){
@@ -220,6 +240,19 @@ class BFSMazeApp{
 			for(let x = 0; x < this.delkaCesty - 1; x++){ // -1 so we don't color the start coordinate too
 				pole = this.zJakehoPoleJsmeSemPrisli[pole];
 				this.addClassToCell(pole, "cesta");
+			}
+		}
+
+		customCalculatePath(coordinates){
+			let pole = coordinates;
+			this.addClassToCell(coordinates, "end");
+			//while(pole !== undefined){ //that doesn't work, because some neighbor field can include start to its neighboring fields and go there (i.e. on 84.txt) => the fix would be to add start to poleVidena in startBFS
+			//however right now it means even start can have a zJakehoPoleJsmePrisli value (according to this data structure it is possible to come to start)
+			//so then it went into a indefinite loop
+			//so fixed to this:
+			while(pole !== this.startCoordinates){
+				pole = this.zJakehoPoleJsmeSemPrisli[pole];
+				this.addClassToCell(pole, "cesta2");			
 			}
 		}
 
@@ -295,6 +328,25 @@ class BFSMazeApp{
 				console.warn("TypeError caught", "row", row, "column", column);
 			}
 
+		}
+
+		attachClickListenerToDrawPathToAnyField(){
+			this.graphicalMaze.addEventListener("click", function(e){
+				let a = e.target;
+				if(a.matches("td.presentResult")){
+					return;
+				}else if(a.matches("div.s")){
+					console.log("skrrrt", this);
+													//div  td 					tr 										div		td
+					let coordinates = [a.parentElement.parentElement.rowIndex, a.parentElement.cellIndex];
+					console.log(coordinates);
+					this.customCalculatePath(coordinates); //this.calculatePath is not a function => need to bind this
+				}else if(a.matches("td")){
+					console.log("brrr");
+					let coordinates = [a.parentElement.rowIndex, a.cellIndex];
+					this.customCalculatePath(coordinates);
+				}
+			}.bind(this));
 		}
 
 }
