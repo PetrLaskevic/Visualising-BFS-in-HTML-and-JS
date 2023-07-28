@@ -59,6 +59,9 @@
            visibility: hidden;
             opacity: 0;
         }
+        .hiddenWithNoHeight{
+            display: none !important;
+        }
         .popup > p{
             line-height: 1.5;
         }
@@ -147,8 +150,9 @@
             background: #ca3a3a !important;
         }
         .paragraph{
-            max-width: 670px;
+            max-width: 655px;
             line-height: 1.4;
+            font-size: 1.2rem;
         }
         .napis{
             display: inline-block;
@@ -161,6 +165,10 @@
             display: inline;
             font-size: 1.2rem;
         }
+        .presentResult{
+            font-size: 1.4rem;
+        }
+        
         @media only screen and (max-width: 800px) { /*777 40em*/
             #controls{
                 gap: 5px !important;
@@ -330,8 +338,16 @@
     </div>
     <div id="tableContainer" style="padding-top: 20px">
      </div>
-    <span class="napis"><h2>Breadth First Search (BFS)</h2> <p>is an algorithm which can be used for solving mazes.</p></span> 
+     <div id="funFact" style="display: flex;flex-direction: column;align-items: center;" class="hiddenWithNoHeight">
+         <span class="napis"><h2>Fun fact:</h2></span>
+         <div>
+         <p class="paragraph">The way BFS works, you can click on any cell which was scanned already (<span class="skippedText"> <span class="skipped ctverecek"></span> <span class="visited ctverecek"></span> any visited cell</span> and it will show you the shortest path from there to start :)</p>
+         <p class="paragraph">If you want to click on more cells, you can scan <a href="javascript:void(0);" id="resume">all remaining cells</a></p>
+         </div>
+     </div>
+     <span class="napis"><h2>Breadth First Search (BFS)</h2> <p>is an algorithm which can be used for solving mazes.</p></span> 
      <p class="paragraph"> It is guaranteed to show the <b>shortest path</b> (unlike DFS), if there is one (meaning there is a way between points A and B).</p>
+
      <pre id="mapText"></pre>
      <div class="popup hidden" id="loadOnLocalServer">
         <p class="heading">
