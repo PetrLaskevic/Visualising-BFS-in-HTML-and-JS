@@ -111,7 +111,7 @@ class BFSMazeApp{
 		calculateMinWidth += 30;
 		calculateMinWidth += (this.pocetColumns - 1) * tableBorderSpacing;
 		const mediaQuery = window.matchMedia('(max-width:'+ calculateMinWidth +'px)');
-		 
+		
 		// Register event listener
 
 		//for the callback event listener, i.e. handleTabletChange will be the value of *this* MediaQueryList and not BFSMAzeApp
@@ -351,6 +351,13 @@ class BFSMazeApp{
 
 }
 
+function whichLineEnding(source) {
+	var temp = source.indexOf('\n');
+	if (source[temp - 1] === '\r')
+		return 'CRLF' //Windows
+	return 'LF' //Linux
+}
+
 let mazePicker = document.getElementById("mazePicker");
 mazePicker.addEventListener("change", function(e){
 	let mazeSelected = mazePicker.value;
@@ -385,7 +392,12 @@ mazePicker.addEventListener("change", function(e){
    			mazeAppClassHolderVariable.hideMaze();
    		}
    		mazeAppClassHolderVariable = new BFSMazeApp();
-   		mazeAppClassHolderVariable.renderMaze(t.split("\r\n"));
+		let lineEnding = whichLineEnding(t);
+		if(lineEnding == "CRLF"){
+			mazeAppClassHolderVariable.renderMaze(t.split("\r\n"));
+		}else if(lineEnding == "LF"){
+			mazeAppClassHolderVariable.renderMaze(t.split("\n"));
+		}
    		mazeAppClassHolderVariable.startBFS();
    	});
 	}
@@ -394,10 +406,15 @@ mazePicker.addEventListener("change", function(e){
 //reading and parsing the input into a table to display as well as the correspoding 2D Array
 document.getElementById('inputfile').addEventListener('change', function(event) {
 	console.log(event);
-		let text = "";
+	let text = "";
     var fr=new FileReader();
     fr.onload=function(){
-        text = fr.result.split("\r\n");
+        let lineEnding = whichLineEnding(fr.result);
+		if(lineEnding == "CRLF"){
+			text = fr.result.split("\r\n");
+		}else if(lineEnding == "LF"){
+			text = fr.result.split("\n");
+		}
         if(mazeAppClassHolderVariable != undefined){
 	   			mazeAppClassHolderVariable.zcelaHotovo = true;
 	   			mazeAppClassHolderVariable.hideMaze();
