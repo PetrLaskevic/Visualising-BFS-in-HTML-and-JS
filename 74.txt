@@ -1,0 +1,29 @@
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+X                                                                           X
+X                                                                           X
+X                                                                           X
+X                                                                           X
+X                       XXXXXXXXXXXXXX                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+X                                    X                                      X
+x                   XXXXXXXXXXXXXXXXXX                                      X
+X                                                                           X
+X                                                                           X
+X                                                                           X
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+start 15, 9
+end 71, 17
