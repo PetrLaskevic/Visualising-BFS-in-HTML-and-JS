@@ -193,7 +193,7 @@ class BFSMazeApp{
 	  presentResult(){
 	  	let row = this.graphicalMaze.insertRow()
 	  	let holder = row.insertCell();
-	  	holder.colSpan = 77; //this.pocetColumns
+	  	holder.colSpan = this.pocetColumns;
 	  	holder.className = "presentResult";
 	  	holder.innerHTML = "<span class='pathText'>Path</span> length from <span class='startText'>start</span> to end is " + this.delkaCesty + " cells long";
 
