@@ -195,7 +195,7 @@ class BFSMazeApp{
 	  	let holder = row.insertCell();
 	  	holder.colSpan = this.pocetColumns;
 	  	holder.className = "presentResult";
-	  	holder.innerHTML = "<span class='pathText'>Path</span> length from <span class='startText'>start</span> to end is " + this.delkaCesty + " cells long";
+	  	holder.innerHTML = "<b class='pathText'>Path</b> length from <b class='startText'>start</b> to <span class='endText'><b>end</b></span> is " + this.delkaCesty + " cells long";
 
 	  	document.getElementById("funFact").classList.remove("hiddenWithNoHeight");
 	  }

@@ -170,6 +170,7 @@
         }
         .presentResult{
             font-size: 1.4rem;
+            font-family: 'Roboto';
         }
         
         @media only screen and (max-width: 800px) { /*777 40em*/
@@ -213,6 +214,12 @@
             }
             .textHolder{
                 align-items: baseline;
+            }
+        }
+        @media (prefers-color-scheme: light) {
+            .presentResult{
+                color: white;
+                background: black;
             }
         }
         @media (prefers-color-scheme: dark) {
