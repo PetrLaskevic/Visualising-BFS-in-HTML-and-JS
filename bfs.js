@@ -374,32 +374,26 @@ mazePicker.addEventListener("change", function(e){
 			document.getElementById("loadOnLocalServerOK").focus();
 			return;
 		}else{
-				//is not local server
-				if(location.hostname.endsWith("github.io")){
-					mazeUrl = window.location.href + mazeSelected;
-				}else{
-					//is local server
-					mazeUrl = "/"  + mazeSelected;
-				}	
+			mazeUrl = "./"  + mazeSelected;
 		}
 		
 		fetch(mazeUrl)
 		.then( r => r.text() )
-   	.then( t => {
-   		//Fun fact: when I don't stop the previous instance, I can have 5 mazes running at the same time no problem, and even responsive design works :)
-   		if(mazeAppClassHolderVariable != undefined){
-   			mazeAppClassHolderVariable.zcelaHotovo = true;
-   			mazeAppClassHolderVariable.hideMaze();
-   		}
-   		mazeAppClassHolderVariable = new BFSMazeApp();
-		let lineEnding = whichLineEnding(t);
-		if(lineEnding == "CRLF"){
-			mazeAppClassHolderVariable.renderMaze(t.split("\r\n"));
-		}else if(lineEnding == "LF"){
-			mazeAppClassHolderVariable.renderMaze(t.split("\n"));
-		}
-   		mazeAppClassHolderVariable.startBFS();
-   	});
+		.then( t => {
+			//Fun fact: when I don't stop the previous instance, I can have 5 mazes running at the same time no problem, and even responsive design works :)
+			if(mazeAppClassHolderVariable != undefined){
+				mazeAppClassHolderVariable.zcelaHotovo = true;
+				mazeAppClassHolderVariable.hideMaze();
+			}
+			mazeAppClassHolderVariable = new BFSMazeApp();
+			let lineEnding = whichLineEnding(t);
+			if(lineEnding == "CRLF"){
+				mazeAppClassHolderVariable.renderMaze(t.split("\r\n"));
+			}else if(lineEnding == "LF"){
+				mazeAppClassHolderVariable.renderMaze(t.split("\n"));
+			}
+			mazeAppClassHolderVariable.startBFS();
+		});
 	}
 });
 
@@ -407,8 +401,8 @@ mazePicker.addEventListener("change", function(e){
 document.getElementById('inputfile').addEventListener('change', function(event) {
 	console.log(event);
 	let text = "";
-    var fr=new FileReader();
-    fr.onload=function(){
+    var fr = new FileReader();
+    fr.onload = function(){
         let lineEnding = whichLineEnding(fr.result);
 		if(lineEnding == "CRLF"){
 			text = fr.result.split("\r\n");
@@ -416,11 +410,11 @@ document.getElementById('inputfile').addEventListener('change', function(event) 
 			text = fr.result.split("\n");
 		}
         if(mazeAppClassHolderVariable != undefined){
-	   			mazeAppClassHolderVariable.zcelaHotovo = true;
-	   			mazeAppClassHolderVariable.hideMaze();
-	   		}
-	   		mazeAppClassHolderVariable = new BFSMazeApp();
-   			mazeAppClassHolderVariable.renderMaze(text);
+			mazeAppClassHolderVariable.zcelaHotovo = true;
+			mazeAppClassHolderVariable.hideMaze();
+	   	}
+		mazeAppClassHolderVariable = new BFSMazeApp();
+		mazeAppClassHolderVariable.renderMaze(text);
         mazeAppClassHolderVariable.startBFS(); //entry point to our actual program
     }
     fr.readAsText(this.files[0]);
@@ -431,11 +425,11 @@ document.getElementById('inputfile').addEventListener('change', function(event) 
 function wait(ms) {
 	if(ms > 0){
 		return new Promise((resolve, reject) => {
-	    setTimeout(() => {
-	      resolve(ms)
-	    }, ms )
-	  })
+			setTimeout(() => {
+			resolve(ms)
+			}, ms )
+		})
 	}else{
-			return;
-		}
+		return;
+	}
 }
