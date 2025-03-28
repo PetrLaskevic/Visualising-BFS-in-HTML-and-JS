@@ -90,18 +90,16 @@ class BFSMazeApp{
 			// matches: false
 			// media: "(max-width: 954px)"
 			
-			let tableElement = this.graphicalMaze.parentElement;
-		  if (e.matches) {
+		let tableElement = this.graphicalMaze.parentElement;
+		if (e.matches) {
 		    // Then log the following message to the console
 		    console.log('Media Query Matched!');
 		    tableElement.className = "useFullWidthForMobile"; //same as document.getElementById("tableParent")
-
-		  }else{
+		}else{
 		    console.log("media query not matched");
 		    tableElement.className = "";
-
-		  }
 		}
+	}
 
 	tryToFitTheMazeOnScreen(){
 
@@ -134,8 +132,7 @@ class BFSMazeApp{
 	    console.log(text)
 	   
 	    this.tryToFitTheMazeOnScreen();
-	    let mapText = document.getElementById("mapText");
-	    mapText.textContent = "";
+
 	    for(let x = 0; x < text.length - 2; x++){ //last 2 lines are start and stop (and possibly an empty line => which I removed already)
 
 	    	let row = text[x].split("")
@@ -143,8 +140,7 @@ class BFSMazeApp{
 	    	const tr = this.graphicalMaze.insertRow();
 	    	
 	    	//the 2D array, storing the maze in place
-				this.maze.push(row); 
-	    	mapText.textContent += row + "\n";
+			this.maze.push(row);
 
 	    	for(let y of row){
 					const td = tr.insertCell();
@@ -155,7 +151,7 @@ class BFSMazeApp{
 	  				td.classList.add("green");
 	  			}
 	    	}
-			}
+		}
 
 	   	let k;
 	    if(text[this.pocetRows - 1].includes("end")){
